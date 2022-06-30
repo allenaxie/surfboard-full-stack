@@ -1,8 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import classes from '../styles/Home.module.scss'
+import Head from 'next/head';
+import Image from 'next/image';
+import classes from '../styles/Home.module.scss';
+import {Card, Row, Col} from 'antd';
 
-export default function Home() {
+const Home = ({ meetings }) => {
   return (
     <div className={classes.container}>
       <Head>
@@ -11,7 +12,37 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      
+      <Row gutter={[32,32]}>
+        {meetings.map((meeting, index) => (
+          <Col
+          xs={{span: 24}}
+          lg={{span: 8}}
+          className={classes.cardContainer}
+          >
+            <Card 
+            key={`${index}-${meeting._id}`}
+            title={meeting.title}
+            className={classes.card}
+            >
+              {meeting.title}
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   )
 }
+
+export default Home;
+
+export async function getStaticProps(context) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings`, { method: 'GET' })
+  const { data } = await res.json();
+
+  return {
+    props: {
+      meetings: data,
+    }
+  }
+
+} 
