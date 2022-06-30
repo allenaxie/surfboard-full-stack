@@ -3,10 +3,12 @@ import '../styles/globals.scss';
 import { Navbar } from '../components';
 
 function MyApp({ Component, pageProps }) {
+
   return (
     <>
       <Navbar />
-      <Component {...pageProps} />
+      <Component 
+      {...pageProps} />
     </>
   )
 }

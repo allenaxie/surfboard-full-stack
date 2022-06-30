@@ -1,9 +1,10 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import classes from '../styles/Home.module.scss';
 import {Card, Row, Col} from 'antd';
 
 const Home = ({ meetings }) => {
+
+
   return (
     <div className={classes.container}>
       <Head>
@@ -29,6 +30,7 @@ const Home = ({ meetings }) => {
           </Col>
         ))}
       </Row>
+
     </div>
   )
 }
@@ -44,5 +46,4 @@ export async function getStaticProps(context) {
       meetings: data,
     }
   }
-
 } 
