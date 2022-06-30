@@ -1,5 +1,5 @@
 import classes from './NewMeetingForm.module.scss';
-import { Form, Input } from 'antd';
+import { Form, Input, InputNumber } from 'antd';
 
 const NewMeetingForm = () => {
 
@@ -14,11 +14,12 @@ const NewMeetingForm = () => {
     return (
         <Form
             name="New Meeting"
+            layout='vertical'
             labelCol={{
-                span: 8,
+                span: 22,
             }}
             wrapperCol={{
-                span: 16,
+                span: 22,
             }}
             initialValues={{
                 remember: true,
@@ -28,16 +29,46 @@ const NewMeetingForm = () => {
             autoComplete="off"
         >
             <Form.Item
-                label="Username"
-                name="username"
+                label="Title"
+                name="title"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your username!',
+                        message: 'Please input a title!',
                     },
                 ]}
             >
                 <Input />
+            </Form.Item>
+            <Form.Item
+                label="Duration of Meeting (minutes)"
+                name="meetingDuration"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input an estimated meeting duration!',
+                    },
+                ]}
+            >
+                <InputNumber min={1} max={9999} step={5}/>
+            </Form.Item>
+            <Form.Item
+                label="Description"
+                name="description"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input a description for your meeting!',
+                    },
+                ]}
+            >
+                <Input.TextArea />
+            </Form.Item>
+            <Form.Item>
+            <button type="submit">
+                Add meeting
+            </button>
+
             </Form.Item>
         </Form>
     )
