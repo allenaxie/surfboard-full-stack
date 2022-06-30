@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const meetingTopicsSchema = new mongoose.Schema({
+const meetingTopicSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Please enter a title'],
@@ -18,4 +18,4 @@ const meetingTopicsSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('MeetingTopics', meetingTopicsSchema);
+module.exports = mongoose.models.MeetingTopic || mongoose.model('MeetingTopic', meetingTopicSchema);
