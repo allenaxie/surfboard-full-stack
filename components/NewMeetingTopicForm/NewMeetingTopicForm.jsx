@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 
 const NewMeetingTopicForm = ({setIsModalVisible}) => {
     const router = useRouter();
+    const [form] = Form.useForm();
 
     const onFinish = async (values) => {
         console.log(values);
@@ -11,6 +12,7 @@ const NewMeetingTopicForm = ({setIsModalVisible}) => {
         createMeetingTopic(values);
         // close modal
         setIsModalVisible(false);
+        form.resetFields();
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -33,15 +35,13 @@ const NewMeetingTopicForm = ({setIsModalVisible}) => {
     return (
         <Form
             name="New Meeting"
+            form={form}
             layout='vertical'
             labelCol={{
                 span: 22,
             }}
             wrapperCol={{
                 span: 22,
-            }}
-            initialValues={{
-                remember: true,
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}

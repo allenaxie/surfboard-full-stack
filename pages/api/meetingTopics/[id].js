@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     } else if (method === 'DELETE') {
         try {
             // find topic
-            const deletedTopic = await MeetingTopic.findByIdAndDelete({ _id: id });
+            const deletedTopic = await MeetingTopic.findOneAndDelete({ _id: id });
             // if no topic
             if (!deletedTopic) {
                 res.status(400).json({ message: 'No meeting topic found.' })
