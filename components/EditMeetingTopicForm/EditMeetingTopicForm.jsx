@@ -53,11 +53,11 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, 
             className={classes.formContainer}
         >
             <div className={classes.topActionBtns}>
-                <button className={classes.closeIconBtn} onClick={() => setAgendaSelected(false)}>
+                <button className={`${classes.closeIconBtn} button`} onClick={() => setAgendaSelected(false)} >
                     <AiOutlineClose className={classes.closeSVG}/>
                 </button>
                 <div className={classes.deleteTopicBtn}>
-                    <button onClick={handleDelete}>Delete</button>
+                    <button onClick={handleDelete} className="button">Delete</button>
                 </div>
             </div>
             <Form
@@ -118,7 +118,7 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, 
                     />
                 </Form.Item>
                 <Form.Item>
-                <button type="submit">
+                <button type="submit" className="button">
                     Edit meeting
                 </button>
                 </Form.Item>

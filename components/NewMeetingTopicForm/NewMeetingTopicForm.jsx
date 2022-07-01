@@ -18,6 +18,8 @@ const NewMeetingTopicForm = ({setIsModalVisible, setAgendaSelected, topicsUpdate
         setTopicsUpdated(topicsUpdated * -1);
         // reset form
         form.resetFields();
+        // back to home page
+        router.push('/');
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -90,8 +92,8 @@ const NewMeetingTopicForm = ({setIsModalVisible, setAgendaSelected, topicsUpdate
                 <Input.TextArea />
             </Form.Item>
             <Form.Item>
-            <button type="submit">
-                Add meeting
+            <button type="submit" className="button">
+                Add meeting topic
             </button>
 
             </Form.Item>

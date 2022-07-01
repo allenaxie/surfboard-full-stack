@@ -61,7 +61,7 @@ const Home = ({ data }) => {
         >
           <h1 className={classes.title}>Agenda</h1>
           <div className={classes.agendaBtnContainer}>
-            <button onClick={() => setIsModalVisible(true)}>Add Agenda</button>
+            <button onClick={() => setIsModalVisible(true)} className="button">Add Agenda</button>
           </div>
           {meetingTopics.map((topic, index) => (
             <Card
