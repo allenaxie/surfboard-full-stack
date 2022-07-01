@@ -1,19 +1,20 @@
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import classes from '../styles/Home.module.scss';
-import { Card, Row, Col, Modal, Form } from 'antd';
+import { Card, Row, Col, Modal, Form, BackTop } from 'antd';
 import { NewMeetingTopicForm, EditMeetingTopicForm } from '../components';
 
 const Home = ({ data }) => {
   const [form] = Form.useForm();
 
-  const [agendaSelected, setAgendaSelected] = useState(-1);
+  const [agendaSelected, setAgendaSelected] = useState(false);
+  const [topicsUpdated, setTopicsUpdated] = useState(-1);
   const [currentTopic, setCurrentTopic] = useState({});
   const [meetingTopics, setMeetingTopics] = useState(data);
-  console.log(meetingTopics);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  // fetch new topics whenever we create, edit, or delete a topic
   useEffect(() => {
     const getTopics = async () => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics`, { method: 'GET' })
@@ -22,9 +23,7 @@ const Home = ({ data }) => {
     }
     getTopics();
 
-  }, [agendaSelected])
-
-
+  }, [topicsUpdated])
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -37,7 +36,7 @@ const Home = ({ data }) => {
   const handleCardClick = (topic, index) => {
     // set current active topic
     setCurrentTopic(topic);
-    setAgendaSelected(index);
+    setAgendaSelected(true);
     // set input initial values
     form.setFieldsValue({
       title: topic.title,
@@ -53,7 +52,8 @@ const Home = ({ data }) => {
         method: 'DELETE',
       })
       // close right column
-      setAgendaSelected(-1);
+      setAgendaSelected(false);
+      setTopicsUpdated(topicsUpdated * -1);
       router.push('/');
 
     } catch (error) {
@@ -84,7 +84,7 @@ const Home = ({ data }) => {
               key={`${index}-${topic._id}`}
               className={classes.card}
               onClick={() => handleCardClick(topic, index)}
-              title={topic.title}
+              title={`${index}. ${topic.title}`}
               extra={`${topic.timeEstimate} minutes`}
             >
               {topic.description}
@@ -96,18 +96,18 @@ const Home = ({ data }) => {
           lg={{ span: 12 }}
           className={classes.editCol}
         >
-          {agendaSelected < 0 ?
-            <>
-              <h1 className={classes.title}> Select to edit</h1>
-            </>
-            :
+          {agendaSelected ?
             <>
               <div className={classes.deleteTopicBtn}>
                 <button onClick={handleDelete}>Delete</button>
               </div>
 
-              <EditMeetingTopicForm currentTopic={currentTopic} form={form} setAgendaSelected={setAgendaSelected} />
+              <EditMeetingTopicForm currentTopic={currentTopic} form={form} setAgendaSelected={setAgendaSelected} agendaSelected={agendaSelected} topicsUpdated={topicsUpdated} setTopicsUpdated={setTopicsUpdated}/>
             </>
+            :
+            <>
+            <h1 className={classes.title}> Select to edit</h1>
+          </>
           }
         </Col>
       </Row>
@@ -119,8 +119,9 @@ const Home = ({ data }) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <NewMeetingTopicForm setIsModalVisible={setIsModalVisible} setAgendaSelected={setAgendaSelected}/>
+        <NewMeetingTopicForm setIsModalVisible={setIsModalVisible} agendaSelected={agendaSelected} setAgendaSelected={setAgendaSelected} topicsUpdated={topicsUpdated} setTopicsUpdated={setTopicsUpdated}/>
       </Modal>
+      <BackTop/>
     </div>
   )
 }

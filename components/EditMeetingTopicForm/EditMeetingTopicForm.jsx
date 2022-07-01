@@ -2,17 +2,17 @@ import classes from './EditMeetingTopicForm.module.scss';
 import { Form, Input, InputNumber } from 'antd';
 import {useRouter} from 'next/router';
 
-const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
+const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, setTopicsUpdated}) => {
     console.log('current topic:', currentTopic);
     const router = useRouter();
 
     const onFinish = async (values,e) => {
-        console.log(values);
-        console.log('event:', e)
         // edit topic
         editMeetingTopic(values);
         // close right column
-        setAgendaSelected(-1);
+        setAgendaSelected(false);
+        // get new data
+        setTopicsUpdated(topicsUpdated * -1);
         router.push('/');
     }
 
@@ -29,21 +29,6 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
             },
             body: JSON.stringify(values)
         })
-    }
-
-    const handleDelete = async () => {
-        try {
-            // delete topic
-            const deletedTopic = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
-                method: 'DELETE',
-            })
-            // close right column
-            setAgendaSelected(-1);
-            router.push('/');
-
-        } catch(error) {
-            console.log(error);
-        }
     }
 
     return (

@@ -2,7 +2,7 @@ import classes from './NewMeetingTopicForm.module.scss';
 import { Form, Input, InputNumber } from 'antd';
 import {useRouter} from 'next/router';
 
-const NewMeetingTopicForm = ({setIsModalVisible, setAgendaSelected}) => {
+const NewMeetingTopicForm = ({setIsModalVisible, setAgendaSelected, topicsUpdated, setTopicsUpdated}) => {
     const router = useRouter();
     const [form] = Form.useForm();
 
@@ -12,8 +12,11 @@ const NewMeetingTopicForm = ({setIsModalVisible, setAgendaSelected}) => {
         createMeetingTopic(values);
         // close modal
         setIsModalVisible(false);
-        // close right col and get new data
-        setAgendaSelected(-2);
+        // close right col
+        setAgendaSelected(false);
+        // get new data
+        setTopicsUpdated(topicsUpdated * -1);
+        // reset form
         form.resetFields();
     }
 
