@@ -2,12 +2,16 @@ import classes from './NewMeetingForm.module.scss';
 import { Form, Input, InputNumber } from 'antd';
 import {useRouter} from 'next/router';
 
-const NewMeetingForm = () => {
+const NewMeetingForm = ({setIsModalVisible}) => {
+    console.log(setIsModalVisible);
+    const router = useRouter();
 
     const onFinish = async (values) => {
         console.log(values);
         // add to meetings
         createMeeting(values);
+        // close modal
+        setIsModalVisible(false);
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -58,7 +62,7 @@ const NewMeetingForm = () => {
             </Form.Item>
             <Form.Item
                 label="Duration of Meeting (minutes)"
-                name="meetingDuration"
+                name="timeEstimate"
                 rules={[
                     {
                         required: true,

@@ -1,9 +1,28 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import classes from '../styles/Home.module.scss';
-import {Card, Row, Col} from 'antd';
+import { Card, Row, Col, Modal } from 'antd';
+import { NewMeetingForm } from '../components';
 
 const Home = ({ meetings }) => {
 
+  const [agendaSelected, setAgendaSelected] = useState(-1);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const {Meta} = Card;
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  }
+
+  const handleClick = (index) => {
+    console.log(index)
+    setAgendaSelected(index);
+  }
 
   return (
     <div className={classes.container}>
@@ -13,7 +32,56 @@ const Home = ({ meetings }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Row gutter={[32,32]}>
+      <Row>
+        <Col
+          xs={{ span: 24 }}
+          lg={{ span: 12 }}
+          className={classes.agendaCol}
+        >
+          <h1 className={classes.title}>Agenda</h1>
+          <div className={classes.agendaBtnContainer}>
+            <button onClick={() => setIsModalVisible(true)}>Add Agenda</button>
+          </div>
+          {meetings.map((meeting, index) => (
+            <Card
+              key={`${index}-${meeting._id}`}
+              className={classes.card}
+              onClick={() => handleClick(index)}
+              title={meeting.title}
+              extra={`${meeting.timeEstimate} minutes`}
+            >
+             {meeting.description}
+            </Card>
+          ))}
+        </Col>
+        <Col
+          xs={{ span: 24 }}
+          lg={{ span: 12 }}
+          className={classes.editCol}
+        >
+          {agendaSelected < 0 ?
+            <>
+              <h1 className={classes.title}> Select to edit</h1>
+            </>
+            :
+            <>
+              <NewMeetingForm />
+            </>
+          }
+        </Col>
+      </Row>
+
+      <Modal
+        title="New Meeting Topic"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <NewMeetingForm setIsModalVisible={setIsModalVisible}/>
+      </Modal>
+
+      {/* <Row gutter={[32,32]}>
         {meetings.map((meeting, index) => (
           <Col
           xs={{span: 24}}
@@ -29,7 +97,7 @@ const Home = ({ meetings }) => {
             </Card>
           </Col>
         ))}
-      </Row>
+      </Row> */}
 
     </div>
   )

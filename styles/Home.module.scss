@@ -1,3 +1,25 @@
-// .cardContainer {
-//   margin: 0 1rem;
-// }
+.agendaCol {
+  padding: 1rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.card {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.editCol {
+  text-align: center;
+  padding: 1rem;
+}
+
+.agendaBtnContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem;
+}
