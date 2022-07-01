@@ -2,7 +2,7 @@ import classes from './NewMeetingTopicForm.module.scss';
 import { Form, Input, InputNumber } from 'antd';
 import {useRouter} from 'next/router';
 
-const NewMeetingTopicForm = ({setIsModalVisible}) => {
+const NewMeetingTopicForm = ({setIsModalVisible, setAgendaSelected}) => {
     const router = useRouter();
     const [form] = Form.useForm();
 
@@ -12,6 +12,8 @@ const NewMeetingTopicForm = ({setIsModalVisible}) => {
         createMeetingTopic(values);
         // close modal
         setIsModalVisible(false);
+        // close right col and get new data
+        setAgendaSelected(-2);
         form.resetFields();
     }
 
@@ -28,6 +30,7 @@ const NewMeetingTopicForm = ({setIsModalVisible}) => {
             },
             body: JSON.stringify(values)
         })
+        
         // redirect to home page
         router.push('/');
     }

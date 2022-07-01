@@ -4,14 +4,27 @@ import classes from '../styles/Home.module.scss';
 import { Card, Row, Col, Modal, Form } from 'antd';
 import { NewMeetingTopicForm, EditMeetingTopicForm } from '../components';
 
-const Home = ({ meetingTopics }) => {
+const Home = ({ data }) => {
   const [form] = Form.useForm();
 
   const [agendaSelected, setAgendaSelected] = useState(-1);
   const [currentTopic, setCurrentTopic] = useState({});
+  const [meetingTopics, setMeetingTopics] = useState(data);
+  console.log(meetingTopics);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {Meta} = Card;
+
+  useEffect(() => {
+    const getTopics = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics`, { method: 'GET' })
+      const { data } = await res.json();
+      setMeetingTopics(data);
+    }
+    getTopics();
+
+  }, [agendaSelected])
+
+
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -21,14 +34,31 @@ const Home = ({ meetingTopics }) => {
     setIsModalVisible(false);
   }
 
-  const handleClick = (topic,index) => {
+  const handleCardClick = (topic, index) => {
+    // set current active topic
     setCurrentTopic(topic);
     setAgendaSelected(index);
+    // set input initial values
     form.setFieldsValue({
       title: topic.title,
       timeEstimate: topic.timeEstimate,
       description: topic.description,
     })
+  }
+
+  const handleDelete = async () => {
+    try {
+      // delete topic
+      const deletedTopic = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
+        method: 'DELETE',
+      })
+      // close right column
+      setAgendaSelected(-1);
+      router.push('/');
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -53,11 +83,11 @@ const Home = ({ meetingTopics }) => {
             <Card
               key={`${index}-${topic._id}`}
               className={classes.card}
-              onClick={() => handleClick(topic, index)}
+              onClick={() => handleCardClick(topic, index)}
               title={topic.title}
               extra={`${topic.timeEstimate} minutes`}
             >
-             {topic.description}
+              {topic.description}
             </Card>
           ))}
         </Col>
@@ -72,11 +102,11 @@ const Home = ({ meetingTopics }) => {
             </>
             :
             <>
-            <div className={classes.deleteTopicBtn}>
-              <button type="submit">Delete</button>
-            </div>
+              <div className={classes.deleteTopicBtn}>
+                <button onClick={handleDelete}>Delete</button>
+              </div>
 
-              <EditMeetingTopicForm currentTopic={currentTopic} form={form} setAgendaSelected={setAgendaSelected}/>
+              <EditMeetingTopicForm currentTopic={currentTopic} form={form} setAgendaSelected={setAgendaSelected} />
             </>
           }
         </Col>
@@ -89,7 +119,7 @@ const Home = ({ meetingTopics }) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <NewMeetingTopicForm setIsModalVisible={setIsModalVisible}/>
+        <NewMeetingTopicForm setIsModalVisible={setIsModalVisible} setAgendaSelected={setAgendaSelected}/>
       </Modal>
     </div>
   )
@@ -103,7 +133,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      meetingTopics: data,
+      data
     }
   }
 } 
