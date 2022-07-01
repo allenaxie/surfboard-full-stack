@@ -1,15 +1,31 @@
 import classes from './NewMeetingForm.module.scss';
 import { Form, Input, InputNumber } from 'antd';
+import {useRouter} from 'next/router';
 
 const NewMeetingForm = () => {
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         console.log(values);
+        // add to meetings
+        createMeeting(values);
     }
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    const createMeeting = async (values) => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings`, {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values)
+        })
+        // redirect to home page
+        router.push('/');
+    }
 
     return (
         <Form

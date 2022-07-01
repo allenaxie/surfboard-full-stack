@@ -1,20 +1,61 @@
 .container {
-    display: flex;
-    flex-direction: row;
     width: 100vw;
+
     padding: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    background-color: #000;
+    color: #fff;
 }
 
 .logo {
-    flex: 0.65;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: .5rem;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
 }
 
-.navLinks {
-    flex: 1;
+.userAvatar {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 
-    & > div {
-        margin: 0 1rem;
+    margin-right: 1.5rem;
+
+    cursor: pointer;
+
+
+    span {
+        background-color: #fff;
+        width: 35px;
+        height: 35px;
+    }
+}
+
+.welcome {
+    padding: 1rem;
+    margin-top: .3rem;
+
+    // user's name
+    &>span>span {
+        font-weight: 600;
+    }
+}
+
+.userMenuItem {
+    &:hover {
+        color: rgba(0, 0, 0, 0.85) !important;
+        background-color: rgba(238, 238, 238, 0.699);
+    }
+
+    svg {
+        margin-right: .5rem;
     }
 }
