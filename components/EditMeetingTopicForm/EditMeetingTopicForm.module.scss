@@ -1,0 +1,44 @@
+.formContainer {
+    position:fixed;
+    width: 50%;
+    padding: 2rem;
+}
+
+.topActionBtns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.closeIconBtn {
+    display: flex;
+    align-items: flex-start;
+
+
+    .closeSVG {
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+}
+
+.timeEstimateContainer {
+    display: flex;
+    align-items: flex-start;
+}
+
+.deleteTopicBtn {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 3.5rem;
+  
+    & button {
+      background-color: #e33737;
+  
+      &:hover {
+        background-color: #fff;
+        border: 1px solid #e33737;
+        color:#e33737;
+      }
+    }
+  }

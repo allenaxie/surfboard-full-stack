@@ -45,22 +45,6 @@ const Home = ({ data }) => {
     })
   }
 
-  const handleDelete = async () => {
-    try {
-      // delete topic
-      const deletedTopic = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
-        method: 'DELETE',
-      })
-      // close right column
-      setAgendaSelected(false);
-      setTopicsUpdated(topicsUpdated * -1);
-      router.push('/');
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
     <div className={classes.container}>
       <Head>
@@ -69,7 +53,7 @@ const Home = ({ data }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Row>
+      <Row className={classes.contentContainer}>
         <Col
           xs={{ span: 24 }}
           lg={{ span: 12 }}
@@ -98,10 +82,6 @@ const Home = ({ data }) => {
         >
           {agendaSelected ?
             <>
-              <div className={classes.deleteTopicBtn}>
-                <button onClick={handleDelete}>Delete</button>
-              </div>
-
               <EditMeetingTopicForm currentTopic={currentTopic} form={form} setAgendaSelected={setAgendaSelected} agendaSelected={agendaSelected} topicsUpdated={topicsUpdated} setTopicsUpdated={setTopicsUpdated}/>
             </>
             :

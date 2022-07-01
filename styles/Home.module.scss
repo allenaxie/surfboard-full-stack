@@ -16,6 +16,7 @@
 .editCol {
   text-align: center;
   padding: 1rem;
+  position: relative;
 }
 
 .agendaBtnContainer {
@@ -24,17 +25,3 @@
   margin: 1rem;
 }
 
-.deleteTopicBtn {
-  display: flex;
-  justify-content: flex-end;
-
-  & button {
-    background-color: #e33737;
-    
-    &:hover {
-      background-color: #fff;
-      border: 1px solid #e33737;
-      color:#e33737;
-    }
-  }
-}

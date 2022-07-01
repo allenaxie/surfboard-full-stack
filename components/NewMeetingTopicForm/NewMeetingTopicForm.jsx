@@ -44,10 +44,10 @@ const NewMeetingTopicForm = ({setIsModalVisible, setAgendaSelected, topicsUpdate
             form={form}
             layout='vertical'
             labelCol={{
-                span: 22,
+                span: 16,
             }}
             wrapperCol={{
-                span: 22,
+                span: 16,
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
