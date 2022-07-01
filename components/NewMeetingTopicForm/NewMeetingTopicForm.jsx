@@ -60,7 +60,7 @@ const NewMeetingTopicForm = ({setIsModalVisible}) => {
                 <Input />
             </Form.Item>
             <Form.Item
-                label="Duration of Meeting (minutes)"
+                label="Duration of topic (minutes)"
                 name="timeEstimate"
                 rules={[
                     {

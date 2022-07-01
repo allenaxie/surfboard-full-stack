@@ -30,6 +30,21 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
         })
     }
 
+    const handleDelete = async () => {
+        try {
+            // delete topic
+            const deletedTopic = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
+                method: 'DELETE',
+            })
+            // close right column
+            setAgendaSelected(-1);
+            router.push('/');
+
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     return (
         <Form
             name="New Meeting Topic"
@@ -60,7 +75,7 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
                 />
             </Form.Item>
             <Form.Item
-                label="Duration of Meeting (minutes)"
+                label="Duration of topic (minutes)"
                 name="timeEstimate"
                 rules={[
                     {
@@ -91,6 +106,7 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
             <button type="submit">
                 Edit meeting
             </button>
+            <button onClick={handleDelete}>Delete button</button>
 
             </Form.Item>
         </Form>
