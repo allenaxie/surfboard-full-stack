@@ -1,12 +1,14 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classes from '../styles/Home.module.scss';
-import { Card, Row, Col, Modal } from 'antd';
-import { NewMeetingForm } from '../components';
+import { Card, Row, Col, Modal, Form } from 'antd';
+import { NewMeetingTopicForm, EditMeetingTopicForm } from '../components';
 
-const Home = ({ meetings }) => {
+const Home = ({ meetingTopics }) => {
+  const [form] = Form.useForm();
 
   const [agendaSelected, setAgendaSelected] = useState(-1);
+  const [currentTopic, setCurrentTopic] = useState({});
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const {Meta} = Card;
@@ -19,9 +21,14 @@ const Home = ({ meetings }) => {
     setIsModalVisible(false);
   }
 
-  const handleClick = (index) => {
-    console.log(index)
+  const handleClick = (topic,index) => {
+    setCurrentTopic(topic);
     setAgendaSelected(index);
+    form.setFieldsValue({
+      title: topic.title,
+      timeEstimate: topic.timeEstimate,
+      description: topic.description,
+    })
   }
 
   return (
@@ -42,15 +49,15 @@ const Home = ({ meetings }) => {
           <div className={classes.agendaBtnContainer}>
             <button onClick={() => setIsModalVisible(true)}>Add Agenda</button>
           </div>
-          {meetings.map((meeting, index) => (
+          {meetingTopics.map((topic, index) => (
             <Card
-              key={`${index}-${meeting._id}`}
+              key={`${index}-${topic._id}`}
               className={classes.card}
-              onClick={() => handleClick(index)}
-              title={meeting.title}
-              extra={`${meeting.timeEstimate} minutes`}
+              onClick={() => handleClick(topic, index)}
+              title={topic.title}
+              extra={`${topic.timeEstimate} minutes`}
             >
-             {meeting.description}
+             {topic.description}
             </Card>
           ))}
         </Col>
@@ -65,7 +72,7 @@ const Home = ({ meetings }) => {
             </>
             :
             <>
-              <NewMeetingForm />
+              <EditMeetingTopicForm currentTopic={currentTopic} form={form} setAgendaSelected={setAgendaSelected}/>
             </>
           }
         </Col>
@@ -78,27 +85,8 @@ const Home = ({ meetings }) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <NewMeetingForm setIsModalVisible={setIsModalVisible}/>
+        <NewMeetingTopicForm setIsModalVisible={setIsModalVisible}/>
       </Modal>
-
-      {/* <Row gutter={[32,32]}>
-        {meetings.map((meeting, index) => (
-          <Col
-          xs={{span: 24}}
-          lg={{span: 8}}
-          className={classes.cardContainer}
-          >
-            <Card 
-            key={`${index}-${meeting._id}`}
-            title={meeting.title}
-            className={classes.card}
-            >
-              {meeting.title}
-            </Card>
-          </Col>
-        ))}
-      </Row> */}
-
     </div>
   )
 }
@@ -106,12 +94,12 @@ const Home = ({ meetings }) => {
 export default Home;
 
 export async function getStaticProps(context) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings`, { method: 'GET' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics`, { method: 'GET' })
   const { data } = await res.json();
 
   return {
     props: {
-      meetings: data,
+      meetingTopics: data,
     }
   }
 } 

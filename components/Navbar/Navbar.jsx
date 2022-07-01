@@ -5,21 +5,10 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { BsWallet2 } from 'react-icons/bs';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { HiOutlineLogout } from 'react-icons/hi';
-import NewMeetingForm from '../NewMeetingForm/NewMeetingForm';
+import NewMeetingForm from '../NewMeetingTopicForm/NewMeetingTopicForm';
 import Link from 'next/link';
 
-const Navbar = ({ }) => {
-
-    // const [isModalVisible, setIsModalVisible] = useState(false);
-    // console.log(setIsModalVisible)
-
-    // const handleOk = () => {
-    //     setIsModalVisible(false);
-    // }
-
-    // const handleCancel = () => {
-    //     setIsModalVisible(false);
-    // }
+const Navbar = () => {
 
     return (
         <div className={classes.container}>
@@ -66,23 +55,6 @@ const Navbar = ({ }) => {
                         <Avatar src="https://joeschmoe.io/api/v1/random" />
                     </Dropdown>
                 </div>
-
-
-            {/* <div
-                className={classes.navLinks}
-            >
-                <div><Link href="/">Home</Link></div>
-                <button onClick={() => setIsModalVisible(true)}>Create Topic</button>
-            </div>
-            <Modal
-                title="Basic Modal"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                footer={null}
-            >
-                <NewMeetingForm />
-            </Modal> */}
         </div>
     )
 }

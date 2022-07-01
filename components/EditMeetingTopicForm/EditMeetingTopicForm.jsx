@@ -1,48 +1,45 @@
-import classes from './NewMeetingForm.module.scss';
+import classes from './EditMeetingTopicForm.module.scss';
 import { Form, Input, InputNumber } from 'antd';
 import {useRouter} from 'next/router';
 
-const NewMeetingForm = ({setIsModalVisible}) => {
-    console.log(setIsModalVisible);
+const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
+    console.log('current topic:', currentTopic);
     const router = useRouter();
 
     const onFinish = async (values) => {
         console.log(values);
-        // add to meetings
-        createMeeting(values);
-        // close modal
-        setIsModalVisible(false);
+        // edit topic
+        editMeetingTopic(values);
+        // close right column
+        setAgendaSelected(-1);
+        router.push('/');
     }
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    const createMeeting = async (values) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetings`, {
-            method: 'POST',
+    const editMeetingTopic = async (values) => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
+            method: 'PUT',
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(values)
         })
-        // redirect to home page
-        router.push('/');
     }
 
     return (
         <Form
-            name="New Meeting"
+            name="New Meeting Topic"
+            form={form}
             layout='vertical'
             labelCol={{
                 span: 22,
             }}
             wrapperCol={{
                 span: 22,
-            }}
-            initialValues={{
-                remember: true,
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -58,7 +55,9 @@ const NewMeetingForm = ({setIsModalVisible}) => {
                     },
                 ]}
             >
-                <Input />
+                <Input 
+                placeholder={currentTopic.title}
+                />
             </Form.Item>
             <Form.Item
                 label="Duration of Meeting (minutes)"
@@ -70,7 +69,9 @@ const NewMeetingForm = ({setIsModalVisible}) => {
                     },
                 ]}
             >
-                <InputNumber min={1} max={9999} step={5}/>
+                <InputNumber min={1} max={9999} step={5} 
+                placeholder={currentTopic.timeEstimate}
+                />
             </Form.Item>
             <Form.Item
                 label="Description"
@@ -82,11 +83,13 @@ const NewMeetingForm = ({setIsModalVisible}) => {
                     },
                 ]}
             >
-                <Input.TextArea />
+                <Input.TextArea 
+                placeholder={currentTopic.description}
+                />
             </Form.Item>
             <Form.Item>
             <button type="submit">
-                Add meeting
+                Edit meeting
             </button>
 
             </Form.Item>
@@ -94,4 +97,4 @@ const NewMeetingForm = ({setIsModalVisible}) => {
     )
 }
 
-export default NewMeetingForm;
+export default EditMeetingForm;
