@@ -6,8 +6,9 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
     console.log('current topic:', currentTopic);
     const router = useRouter();
 
-    const onFinish = async (values) => {
+    const onFinish = async (values,e) => {
         console.log(values);
+        console.log('event:', e)
         // edit topic
         editMeetingTopic(values);
         // close right column
@@ -56,7 +57,7 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
             wrapperCol={{
                 span: 22,
             }}
-            onFinish={onFinish}
+            onFinish={(e) => onFinish(e)}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
         >
@@ -106,10 +107,9 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected}) => {
             <button type="submit">
                 Edit meeting
             </button>
-            <button onClick={handleDelete}>Delete button</button>
-
             </Form.Item>
         </Form>
+
     )
 }
 

@@ -72,6 +72,10 @@ const Home = ({ meetingTopics }) => {
             </>
             :
             <>
+            <div className={classes.deleteTopicBtn}>
+              <button type="submit">Delete</button>
+            </div>
+
               <EditMeetingTopicForm currentTopic={currentTopic} form={form} setAgendaSelected={setAgendaSelected}/>
             </>
           }
