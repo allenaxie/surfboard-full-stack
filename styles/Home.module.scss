@@ -13,6 +13,13 @@
   cursor: pointer;
 }
 
+.cardExtra {
+  & > span:first-child {
+    margin-right: 3rem;
+    font-weight: 450;
+  }
+}
+
 .editCol {
   text-align: center;
   padding: 1rem;

@@ -27,9 +27,7 @@ const Navbar = () => {
                                             </div>
                                             <Menu.Item key="profile" className={classes.userMenuItem}>
                                                 <AiOutlineUser />
-                                                <Link href="/profile">
                                                     Profile
-                                                </Link>
                                             </Menu.Item>
                                             <Menu.Item key="settings" className={classes.userMenuItem}>
                                                 <IoSettingsOutline/>

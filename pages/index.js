@@ -41,6 +41,7 @@ const Home = ({ data }) => {
     form.setFieldsValue({
       title: topic.title,
       timeEstimate: topic.timeEstimate,
+      owner: topic.owner,
       description: topic.description,
     })
   }
@@ -69,7 +70,14 @@ const Home = ({ data }) => {
               className={classes.card}
               onClick={() => handleCardClick(topic, index)}
               title={`${index}. ${topic.title}`}
-              extra={`${topic.timeEstimate} minutes`}
+              extra={
+                <div className={classes.cardExtra}>
+                  <span>{topic.owner}</span>
+                  <span>
+                    {topic.timeEstimate} minutes
+                  </span>
+                </div>
+              }
             >
               {topic.description}
             </Card>

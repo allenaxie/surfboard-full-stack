@@ -1,13 +1,13 @@
 import classes from './EditMeetingTopicForm.module.scss';
-import { Form, Input, InputNumber } from 'antd';
-import {useRouter} from 'next/router';
-import {AiOutlineClose} from 'react-icons/ai';
+import { Form, Input, InputNumber, Select } from 'antd';
+import { useRouter } from 'next/router';
+import { AiOutlineClose } from 'react-icons/ai';
 
-const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, setTopicsUpdated}) => {
+const EditMeetingForm = ({ currentTopic, form, setAgendaSelected, topicsUpdated, setTopicsUpdated }) => {
     console.log('current topic:', currentTopic);
     const router = useRouter();
 
-    const onFinish = async (values,e) => {
+    const onFinish = async (values, e) => {
         // edit topic
         editMeetingTopic(values);
         // close right column
@@ -34,27 +34,31 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, 
 
     const handleDelete = async () => {
         try {
-          // delete topic
-          const deletedTopic = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
-            method: 'DELETE',
-          })
-          // close right column
-          setAgendaSelected(false);
-          setTopicsUpdated(topicsUpdated * -1);
-          router.push('/');
-    
+            // delete topic
+            const deletedTopic = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
+                method: 'DELETE',
+            })
+            // close right column
+            setAgendaSelected(false);
+            setTopicsUpdated(topicsUpdated * -1);
+            router.push('/');
+
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
+    }
+
+    const handleOptionChange = (value) => {
+        console.log(value);
+    }
 
     return (
-        <div                 
+        <div
             className={classes.formContainer}
         >
             <div className={classes.topActionBtns}>
                 <button className={`${classes.closeIconBtn} button`} onClick={() => setAgendaSelected(false)} >
-                    <AiOutlineClose className={classes.closeSVG}/>
+                    <AiOutlineClose className={classes.closeSVG} />
                 </button>
                 <div className={classes.deleteTopicBtn}>
                     <button onClick={handleDelete} className="button">Delete</button>
@@ -84,8 +88,8 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, 
                         },
                     ]}
                 >
-                    <Input 
-                    placeholder={currentTopic.title}
+                    <Input
+                        placeholder={currentTopic.title}
                     />
                 </Form.Item>
                 <Form.Item
@@ -99,9 +103,25 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, 
                     ]}
                     className={classes.timeEstimateContainer}
                 >
-                    <InputNumber min={1} max={9999} step={5} 
-                    placeholder={currentTopic.timeEstimate}
+                    <InputNumber min={1} max={9999} step={5}
+                        placeholder={currentTopic.timeEstimate}
                     />
+                </Form.Item>
+                <Form.Item
+                    label="Owner"
+                    name="owner"
+                >
+                    <Select
+                        onChange={handleOptionChange}
+                    >
+                        <Select.Option value="CEO">CEO</Select.Option>
+                        <Select.Option value="CTO">CTO</Select.Option>
+                        <Select.Option value="Stephen Durry">Stephen Durry</Select.Option>
+                        <Select.Option value="Harry Patter">Harry Patter</Select.Option>
+                        <Select.Option value="Developer Strange">Developer Strange</Select.Option>
+                        <Select.Option value="Cosmos">Cosmos</Select.Option>
+                        <Select.Option value="伍六七">伍六七</Select.Option>
+                    </Select>
                 </Form.Item>
                 <Form.Item
                     label="Description:"
@@ -113,14 +133,14 @@ const EditMeetingForm = ({currentTopic, form, setAgendaSelected, topicsUpdated, 
                         },
                     ]}
                 >
-                    <Input.TextArea 
-                    placeholder={currentTopic.description}
+                    <Input.TextArea
+                        placeholder={currentTopic.description}
                     />
                 </Form.Item>
                 <Form.Item>
-                <button type="submit" className="button">
-                    Edit meeting
-                </button>
+                    <button type="submit" className="button">
+                        Edit meeting
+                    </button>
                 </Form.Item>
             </Form>
         </div>

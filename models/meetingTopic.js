@@ -13,6 +13,9 @@ const meetingTopicSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, 'Please enter a description of the meeting'],
+    },
+    owner: {
+        type: String,
     }
 }, {
     timestamps: true
