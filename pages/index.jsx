@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react';
 import classes from '../styles/Home.module.scss';
 import { Card, Row, Col, Modal, Form, BackTop } from 'antd';
 import { NewMeetingTopicForm, EditMeetingTopicForm } from '../components';
-import dbConnect from '../utilities/dbConnect';
-import MeetingTopic from '../models/meetingTopic';
+import { loadTopics } from '../lib/getTopics';
 
 const Home = ({ data }) => {
   const [form] = Form.useForm();
@@ -117,10 +116,9 @@ const Home = ({ data }) => {
 }
 
 export async function getStaticProps(context) {
-  dbConnect();
 
-  const meetingTopic = await MeetingTopic.find({});
-  const data = JSON.parse(JSON.stringify(meetingTopic));
+  const data = await loadTopics();
+
   // const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics`, { method: 'GET' });
   // const { data } = await res.json();
 
