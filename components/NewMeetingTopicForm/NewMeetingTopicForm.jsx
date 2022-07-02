@@ -7,7 +7,6 @@ const NewMeetingTopicForm = ({ setIsModalVisible, setAgendaSelected, topicsUpdat
     const [form] = Form.useForm();
 
     const onFinish = async (values) => {
-        console.log(values);
         // add to meetings
         createMeetingTopic(values);
         // close modal

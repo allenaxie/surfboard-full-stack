@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { AiOutlineClose } from 'react-icons/ai';
 
 const EditMeetingForm = ({ currentTopic, form, setAgendaSelected, topicsUpdated, setTopicsUpdated }) => {
-    console.log('current topic:', currentTopic);
     const router = useRouter();
 
     const onFinish = async (values, e) => {

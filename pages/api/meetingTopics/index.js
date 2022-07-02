@@ -1,5 +1,5 @@
-import dbConnect from "../../../utilities/dbConnect";
-import MeetingTopic from "../../../models/meetingTopic";
+import dbConnect from '../../../utilities/dbConnect';
+import MeetingTopic from '../../../models/meetingTopic';
 
 export default async function handler (req,res) {
     const {method} = req;
