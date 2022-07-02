@@ -6,13 +6,13 @@
 
 ## 📝 Description
 
-This application
+This application was built for Surfboard's full stack developer assessment. It is a single-page application where users can create, read, update, and delete meeting topics. This can become part of a bigger software program in which users use to present during meetings.
 
 ## 📸 Screenshots 
 
 | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-|<img src="images/screenshot.png" width=400px height=180px overflow="hidden">
+|<img src="/Users/allenxie/code/surfboard-full-stack/public/screenshot.png" width=400px height=180px overflow="hidden">
 
 ## 💻 Technologies Used 
 
@@ -26,7 +26,8 @@ This application
 - SCSS
 - Ant Design
 
-Link to Deployed App -- <https://web3-ax.netlify.app/>
+Link to Deployed App -- <https://surfboard-meetings.netlify.app//>
 
 ## ⏭️ Next Steps
-
+- Allow user to drag meeting topics to reorder them
+- Create a chat system for users to communicate in
