@@ -18,7 +18,7 @@ const Home = ({ data }) => {
   // fetch new topics whenever we create, edit, or delete a topic
   useEffect(() => {
     const getTopics = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics`, { method: 'GET' })
+      const res = await fetch(`/api/meetingTopics`, { method: 'GET' })
       const { data } = await res.json();
       setMeetingTopics(data);
     }
@@ -118,9 +118,6 @@ const Home = ({ data }) => {
 export async function getStaticProps(context) {
 
   const data = await loadTopics();
-
-  // const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics`, { method: 'GET' });
-  // const { data } = await res.json();
 
   return {
     props: {

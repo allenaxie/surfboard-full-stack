@@ -21,7 +21,7 @@ const EditMeetingForm = ({ currentTopic, form, setAgendaSelected, topicsUpdated,
     };
 
     const editMeetingTopic = async (values) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
+        const res = await fetch(`/api/meetingTopics/${currentTopic._id}`, {
             method: 'PUT',
             headers: {
                 "Accept": "application/json",
@@ -34,7 +34,7 @@ const EditMeetingForm = ({ currentTopic, form, setAgendaSelected, topicsUpdated,
     const handleDelete = async () => {
         try {
             // delete topic
-            const deletedTopic = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics/${currentTopic._id}`, {
+            const deletedTopic = await fetch(`/api/meetingTopics/${currentTopic._id}`, {
                 method: 'DELETE',
             })
             // close right column
