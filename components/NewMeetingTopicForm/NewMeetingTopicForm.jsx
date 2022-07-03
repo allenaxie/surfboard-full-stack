@@ -39,10 +39,6 @@ const NewMeetingTopicForm = ({ setIsModalVisible, setAgendaSelected, topicsUpdat
         router.push('/');
     }
 
-    const handleOptionChange = (value) => {
-        console.log(value);
-    }
-
     return (
         <Form
             name="New Meeting"
@@ -87,7 +83,6 @@ const NewMeetingTopicForm = ({ setIsModalVisible, setAgendaSelected, topicsUpdat
                 name="owner"
             >
                 <Select
-                    onChange={handleOptionChange}
                 >
                     <Select.Option value="CEO">CEO</Select.Option>
                     <Select.Option value="CTO">CTO</Select.Option>

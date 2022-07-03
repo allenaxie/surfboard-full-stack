@@ -47,10 +47,6 @@ const EditMeetingForm = ({ currentTopic, form, setAgendaSelected, topicsUpdated,
         }
     }
 
-    const handleOptionChange = (value) => {
-        console.log(value);
-    }
-
     return (
         <div
             className={classes.formContainer}
@@ -111,7 +107,6 @@ const EditMeetingForm = ({ currentTopic, form, setAgendaSelected, topicsUpdated,
                     name="owner"
                 >
                     <Select
-                        onChange={handleOptionChange}
                     >
                         <Select.Option value="CEO">CEO</Select.Option>
                         <Select.Option value="CTO">CTO</Select.Option>
