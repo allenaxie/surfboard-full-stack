@@ -12,7 +12,7 @@ This application was built for Surfboard's full stack developer assessment. It i
 
 | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-|<img src="/Users/allenxie/code/surfboard-full-stack/public/screenshot.png" width=400px height=180px overflow="hidden">
+|<img src="/public/screenshot.png" width=400px height=180px overflow="hidden">
 
 ## 💻 Technologies Used 
 
