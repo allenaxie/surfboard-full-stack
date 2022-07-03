@@ -26,7 +26,7 @@ const NewMeetingTopicForm = ({ setIsModalVisible, setAgendaSelected, topicsUpdat
     };
 
     const createMeetingTopic = async (values) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/meetingTopics`, {
+        const res = await fetch(`/api/meetingTopics`, {
             method: 'POST',
             headers: {
                 "Accept": "application/json",

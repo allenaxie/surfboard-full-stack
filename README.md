@@ -29,5 +29,6 @@ This application was built for Surfboard's full stack developer assessment. It i
 Link to Deployed App -- <https://surfboard-meetings.netlify.app//>
 
 ## ⏭️ Next Steps
+- Implement NextAuth for users to login with Google or Github
 - Allow user to drag meeting topics to reorder them
 - Create a chat system for users to communicate in
